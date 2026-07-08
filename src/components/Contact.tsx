@@ -10,7 +10,7 @@ const contactSchema = z.object({
   business: z.string().min(2, "Business name is required."),
   service: z.string().min(2, "Please enter your required service."),
   budget: z.number({
-    invalid_type_error: "Please enter a valid budget.",
+    message: "Please enter a valid budget.",
   }).min(1, "Please enter your budget."),
   message: z
     .string()
