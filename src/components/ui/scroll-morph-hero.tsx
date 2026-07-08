@@ -143,7 +143,7 @@ export function IntroAnimation() {
     };
     const handleTouchMove = (e: TouchEvent) => {
       const touchY = e.touches[0].clientY;
-      const deltaY = touchStartY - touchY;
+      const deltaY = (touchStartY - touchY) * 2.5; // Increased scroll speed for mobile
       touchStartY = touchY;
       const newScroll = Math.min(
         Math.max(scrollRef.current + deltaY, 0),
@@ -224,7 +224,7 @@ export function IntroAnimation() {
 
       <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center perspective-1000">
 
-        <div className="absolute z-0 flex flex-col items-center justify-center text-center pointer-events-none top-1/2 -translate-y-1/2">
+        <div className="absolute z-20 flex flex-col items-center justify-center text-center pointer-events-none top-1/2 -translate-y-1/2">
 
           <motion.h1
             initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
@@ -234,7 +234,7 @@ export function IntroAnimation() {
                 : { opacity: 0, filter: "blur(10px)" }
             }
             transition={{ duration: 1 }}
-            className="text-4xl font-semibold tracking-tighter text-foreground md:text-7xl"
+            className="text-5xl font-semibold tracking-tighter text-foreground md:text-7xl"
           >
 
             CineOg.
@@ -247,7 +247,7 @@ export function IntroAnimation() {
                 : { opacity: 0 }
             }
             transition={{ duration: 1, delay: 0.2 }}
-            className="mt-6 text-sm font-medium tracking-[0.3em] text-muted-foreground"
+            className="mt-4 text-[10px] md:text-sm font-medium tracking-[0.3em] text-muted-foreground"
           >
 
             SCROLL TO EXPLORE
@@ -286,7 +286,9 @@ export function IntroAnimation() {
                 containerSize.width,
                 containerSize.height,
               );
-              const circleRadius = Math.min(minDimension * 0.35, 350);
+              const circleRadius = isMobile 
+                ? Math.min(minDimension * 0.42, 200) 
+                : Math.min(minDimension * 0.35, 350);
               const circleAngle = (i / TOTAL_IMAGES) * 360;
               const circleRad = (circleAngle * Math.PI) / 180;
               const circlePos = {

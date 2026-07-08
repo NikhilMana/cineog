@@ -40,9 +40,20 @@ const services = [
 
 export function Services() {
   return (
-    <section id="services" className="w-full bg-background py-16 md:py-24">
-      <div className="container mx-auto px-6 md:px-12 flex justify-center">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 md:gap-12">
+    <section id="services" className="w-full bg-background py-10 md:py-20">
+      <div className="container mx-auto px-6 md:px-12 flex flex-col items-center">
+        <div className="text-center max-w-3xl mb-10 md:mb-16">
+          <h3 className="text-sm md:text-base font-bold tracking-[0.2em] text-[#D61F3B] uppercase mb-4">
+            Our Expertise
+          </h3>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-foreground mb-6">
+            Comprehensive <span className="text-[#D61F3B]">cinematic</span> services.
+          </h2>
+          <p className="text-muted-foreground text-lg">
+            From commercial photography to high-end drone shoots and podcast production, we provide everything needed to elevate your brand.
+          </p>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 md:gap-12 w-full max-w-6xl">
           {services.map((service, index) => (
             <div key={index} className="flex flex-col items-center text-center gap-4 group">
               <div className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center text-foreground group-hover:scale-110 transition-transform duration-300">

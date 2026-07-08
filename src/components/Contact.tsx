@@ -8,8 +8,8 @@ const contactSchema = z.object({
   email: z.string().email("Please enter a valid email address."),
   phone: z.string().min(10, "Please enter a valid phone number."),
   business: z.string().min(2, "Business name is required."),
-  service: z.string().nonempty("Please select a service."),
-  budget: z.string().nonempty("Please select a budget range."),
+  service: z.string().min(2, "Please enter your required service."),
+  budget: z.coerce.number().min(1, "Please enter your budget."),
   message: z
     .string()
     .min(10, "Please provide more details about your project."),
@@ -24,27 +24,40 @@ export function Contact() {
     reset,
   } = useForm<ContactFormValues>({ resolver: zodResolver(contactSchema) });
   const onSubmit = async (data: ContactFormValues) => {
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    console.log(data);
-    setIsSuccess(true);
-    reset();
-    setTimeout(() => setIsSuccess(false), 5000);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to send email');
+      }
+      
+      setIsSuccess(true);
+      reset();
+      setTimeout(() => setIsSuccess(false), 5000);
+    } catch (error) {
+      console.error(error);
+      alert("Failed to submit inquiry. Please try again later.");
+    }
   };
   return (
-    <section id="contact" className="w-full bg-secondary py-24 md:py-32">
+    <section id="contact" className="w-full bg-secondary py-10 md:py-20">
 
       <div className="container mx-auto px-6 md:px-12">
 
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
 
-          <div className="lg:w-1/3">
-
+          {/* Left Column: Contact Info & Value Prop */}
+          <div className="lg:w-1/2 flex flex-col justify-center">
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-foreground mb-6">
-
-              Let's create something extraordinary.
+              Let's craft your next <span className="text-[#D61F3B]">masterpiece.</span>
             </h2>
-            <p className="text-muted-foreground text-lg mb-12">
+            <p className="text-muted-foreground text-lg mb-8 md:mb-12">
 
               Share your vision with us, and we'll help bring it to life. We
               take on a limited number of projects per year to ensure
@@ -154,38 +167,27 @@ export function Contact() {
 
                   <div>
 
-                    <select
+                    <input
                       {...register("service")}
-                      className="w-full bg-card border rounded-xl px-6 py-4 text-muted-foreground focus:outline-none focus:border-[#D61F3B] transition-colors appearance-none"
-                    >
-
-                      <option value="">Select Service</option>
-                      <option value="commercial">Commercial Photography</option>
-                      <option value="event">Event Coverage</option>
-                      <option value="reels">Video & Reels</option>
-                      <option value="full">
-                        Full Campaign Production
-                      </option>
-                    </select>
+                      placeholder="Required Service (e.g., Commercial Video)"
+                      className="w-full bg-card border rounded-xl px-6 py-4 text-foreground placeholder-gray-500 focus:outline-none focus:border-[#D61F3B] transition-colors"
+                    />
                     {errors.service && (
                       <p className="text-[#D61F3B] text-xs mt-2 ml-2">
                         {errors.service.message}
                       </p>
                     )}
                   </div>
-                  <div>
-
-                    <select
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none">
+                      <span className="text-gray-500 text-lg">₹</span>
+                    </div>
+                    <input
+                      type="number"
                       {...register("budget")}
-                      className="w-full bg-card border rounded-xl px-6 py-4 text-muted-foreground focus:outline-none focus:border-[#D61F3B] transition-colors appearance-none"
-                    >
-
-                      <option value="">Budget Range</option>
-                      <option value="5k-10k">$5k - $10k</option>
-                      <option value="10k-25k">$10k - $25k</option>
-                      <option value="25k-50k">$25k - $50k</option>
-                      <option value="50k+">$50k+</option>
-                    </select>
+                      placeholder="Budget (in Rupees)"
+                      className="w-full bg-card border rounded-xl pl-10 pr-6 py-4 text-foreground placeholder-gray-500 focus:outline-none focus:border-[#D61F3B] transition-colors"
+                    />
                     {errors.budget && (
                       <p className="text-[#D61F3B] text-xs mt-2 ml-2">
                         {errors.budget.message}

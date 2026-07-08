@@ -18,7 +18,7 @@ export function About() {
     <section
       ref={containerRef}
       id="about"
-      className="relative w-full bg-background py-24 md:py-32 overflow-hidden"
+      className="relative w-full bg-background py-16 md:py-20 overflow-hidden"
     >
 
       <div className="container mx-auto px-6 md:px-12">
@@ -47,7 +47,7 @@ export function About() {
 
               We capture moments that transcend time.
             </h2>
-            <p className="text-muted-foreground text-lg md:text-xl font-light leading-relaxed mb-12">
+            <p className="text-muted-foreground text-lg md:text-xl font-light leading-relaxed mb-8 md:mb-12">
 
               Based at the intersection of art and commerce, CineOg is a premier
               photography and cinematography agency dedicated to telling the

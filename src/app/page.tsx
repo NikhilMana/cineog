@@ -4,8 +4,7 @@ import { About } from "@/components/About";
 import { Brands } from "@/components/Brands";
 import { Services } from "@/components/Services";
 import { StickyScrollGallery } from "@/components/ui/sticky-scroll";
-import { ThreeDPhotoCarousel } from "@/components/ui/3d-carousel";
-import { FAQ } from "@/components/FAQ";
+import { ReelsSection } from "@/components/ReelsSection";
 import { Contact } from "@/components/Contact";
 
 export default function Home() {
@@ -18,8 +17,7 @@ export default function Home() {
       <Brands />
       <Services />
       <StickyScrollGallery />
-      <ThreeDPhotoCarousel />
-      <FAQ />
+      <ReelsSection />
       <Contact />
     </div>
   );

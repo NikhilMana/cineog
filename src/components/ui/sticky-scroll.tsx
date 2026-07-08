@@ -31,7 +31,7 @@ const Component = forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
     return (
       <section className="bg-background w-full relative" ref={ref} id="gallery">
         <div className="wrapper relative">
-          <section className="text-foreground h-[50vh] md:h-[80vh] w-full bg-background grid place-content-center ">
+          <section className="text-foreground py-10 md:py-20 w-full bg-background grid place-content-center ">
             <h2 className="text-4xl md:text-6xl px-8 font-bold text-center tracking-tighter z-10 text-foreground">
               Timeless Gallery <br />
               <span className="text-muted-foreground font-medium text-lg tracking-widest uppercase mt-4 block">
@@ -40,7 +40,7 @@ const Component = forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
             </h2>
           </section>
         </div>
-        <section className="text-foreground w-full bg-background py-12 container mx-auto px-6 relative">
+        <section className="text-foreground w-full bg-background py-8 md:py-16 container mx-auto px-6 relative">
           <div className="grid grid-cols-12 gap-2 md:gap-4 relative items-start">
             <div className="grid gap-2 md:gap-4 col-span-4">
               {images.slice(0, 7).map((img, i) => (
