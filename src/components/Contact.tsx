@@ -9,7 +9,9 @@ const contactSchema = z.object({
   phone: z.string().min(10, "Please enter a valid phone number."),
   business: z.string().min(2, "Business name is required."),
   service: z.string().min(2, "Please enter your required service."),
-  budget: z.coerce.number().min(1, "Please enter your budget."),
+  budget: z.number({
+    invalid_type_error: "Please enter a valid budget.",
+  }).min(1, "Please enter your budget."),
   message: z
     .string()
     .min(10, "Please provide more details about your project."),
@@ -184,7 +186,7 @@ export function Contact() {
                     </div>
                     <input
                       type="number"
-                      {...register("budget")}
+                      {...register("budget", { valueAsNumber: true })}
                       placeholder="Budget (in Rupees)"
                       className="w-full bg-card border rounded-xl pl-10 pr-6 py-4 text-foreground placeholder-gray-500 focus:outline-none focus:border-[#D61F3B] transition-colors"
                     />
