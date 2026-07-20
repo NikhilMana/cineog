@@ -130,7 +130,7 @@ export function DashboardClient({ initialConfig }: DashboardClientProps) {
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center">
             <Image
-              src="/logo.png"
+              src="/Cineog_white_logo-01.png"
               alt="CineOg Logo"
               width={100}
               height={24}

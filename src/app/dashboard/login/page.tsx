@@ -55,10 +55,10 @@ export default function LoginPage() {
 
           <div className="text-center mb-8 flex flex-col items-center">
             <Image
-              src="/logo.png"
+              src="/Cineog_white_logo-01.png"
               alt="CineOg Logo"
-              width={160}
-              height={40}
+              width={150}
+              height={35}
               className="object-contain mb-4"
               priority
             />

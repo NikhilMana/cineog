@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
+
 const navLinks = [
   { name: "About", href: "#about" },
   { name: "Services", href: "#services" },
@@ -11,8 +13,13 @@ const navLinks = [
   { name: "Reels", href: "#reels" },
 ];
 export function Header() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  const isDashboard = pathname?.startsWith("/dashboard");
+  const logoSrc = isDashboard ? "/Cineog_white_logo-01.png" : "/logo.png";
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -33,7 +40,7 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="relative z-50" onClick={() => setMobileMenuOpen(false)}>
             <Image
-              src="/logo.png"
+              src={logoSrc}
               alt="CineOg Logo"
               width={150}
               height={35}
@@ -48,14 +55,22 @@ export function Header() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className={`text-base font-medium transition-colors ${
+                  isDashboard
+                    ? "text-zinc-400 hover:text-white"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
               >
                 {link.name}
               </Link>
             ))}
             <Link
               href="#contact"
-              className="text-base font-medium bg-foreground text-background px-8 py-2.5 rounded-full hover:opacity-80 transition-opacity"
+              className={`text-base font-medium px-8 py-2.5 rounded-full transition-all ${
+                isDashboard
+                  ? "bg-zinc-800 text-zinc-200 hover:bg-zinc-700 hover:text-white border border-zinc-700"
+                  : "bg-foreground text-background hover:opacity-80"
+              }`}
             >
               Book a Shoot
             </Link>
@@ -63,7 +78,9 @@ export function Header() {
           
           {/* Mobile Nav Toggle */}
           <button
-            className="relative z-50 md:hidden text-foreground p-2"
+            className={`relative z-50 md:hidden p-2 ${
+              isDashboard ? "text-zinc-100" : "text-foreground"
+            }`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle Menu"
           >
@@ -80,13 +97,19 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 md:hidden pt-20"
+            className={`fixed inset-0 z-40 backdrop-blur-xl flex flex-col items-center justify-center gap-8 md:hidden pt-20 ${
+              isDashboard ? "bg-zinc-950/95 text-white" : "bg-background/95 text-foreground"
+            }`}
           >
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-3xl font-semibold text-muted-foreground hover:text-foreground transition-colors"
+                className={`text-3xl font-semibold transition-colors ${
+                  isDashboard
+                    ? "text-zinc-400 hover:text-white"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}
@@ -95,7 +118,11 @@ export function Header() {
             <Link
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="mt-8 text-lg font-medium bg-foreground text-background px-8 py-3 rounded-full hover:opacity-80 transition-colors"
+              className={`mt-8 text-lg font-medium px-8 py-3 rounded-full transition-colors ${
+                isDashboard
+                  ? "bg-zinc-800 text-zinc-200 hover:bg-zinc-700 hover:text-white border border-zinc-700"
+                  : "bg-foreground text-background hover:opacity-80"
+              }`}
             >
               Book a Shoot
             </Link>
