@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Lock, Eye, EyeOff, ArrowRight, Sparkles } from "lucide-react";
+import Image from "next/image";
+import { Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
 
 export default function LoginPage() {
   const [password, setPassword] = useState("");
@@ -52,11 +53,16 @@ export default function LoginPage() {
             <Lock className="h-6 w-6 text-zinc-100" />
           </div>
 
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold tracking-tight text-white flex items-center justify-center gap-2">
-              CineOg <Sparkles className="h-4 w-4 text-zinc-400" />
-            </h1>
-            <p className="text-sm text-zinc-400 mt-2 font-light">
+          <div className="text-center mb-8 flex flex-col items-center">
+            <Image
+              src="/logo.png"
+              alt="CineOg Logo"
+              width={160}
+              height={40}
+              className="object-contain mb-4"
+              priority
+            />
+            <p className="text-sm text-zinc-400 font-light">
               Enter password to access administration panel.
             </p>
           </div>

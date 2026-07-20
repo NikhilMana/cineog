@@ -3,6 +3,7 @@
 import React, { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import { 
   Upload, 
   LogOut, 
@@ -127,15 +128,19 @@ export function DashboardClient({ initialConfig }: DashboardClientProps) {
     <div className="min-h-screen bg-black text-zinc-100 flex flex-col font-sans select-none">
       <header className="border-b border-zinc-900 bg-zinc-950/70 backdrop-blur-md sticky top-0 z-50 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="h-9 w-9 bg-zinc-900 border border-zinc-800 rounded-lg flex items-center justify-center">
-            <Sparkles className="h-5 w-5 text-white animate-pulse" />
-          </div>
-          <div>
-            <span className="font-bold text-white tracking-tight">CineOg</span>
-            <span className="text-[10px] uppercase font-semibold text-zinc-500 tracking-wider ml-2 bg-zinc-900/80 px-2 py-0.5 rounded border border-zinc-800">
-              Admin CMS
-            </span>
-          </div>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/logo.png"
+              alt="CineOg Logo"
+              width={100}
+              height={24}
+              className="object-contain"
+              priority
+            />
+          </Link>
+          <span className="text-[10px] uppercase font-semibold text-zinc-500 tracking-wider bg-zinc-900/80 px-2 py-0.5 rounded border border-zinc-800">
+            Admin CMS
+          </span>
         </div>
 
         <div className="flex items-center gap-4">
