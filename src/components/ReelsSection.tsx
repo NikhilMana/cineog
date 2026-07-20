@@ -3,9 +3,14 @@
 import React, { useMemo } from "react"
 import { CardCarousel } from "@/components/ui/card-carousel"
 
-export const ReelsSection = () => {
+interface ReelItem {
+  src: string;
+  type?: "video" | "image";
+}
+
+export const ReelsSection = ({ reels: propReels }: { reels?: ReelItem[] }) => {
   const reels = useMemo(
-    () => [
+    () => propReels || [
       { src: "/reels/Videos/Escobar imp.mp4", type: "video" as const },
       { src: "/reels/Videos/Kashmir Organic Nuts.mp4", type: "video" as const },
       { src: "/reels/Videos/Bandioke Nights At BanngBar.mp4", type: "video" as const },
@@ -20,7 +25,7 @@ export const ReelsSection = () => {
       { src: "/reels/Videos/The Cointreau Margarita Challenge 2026.mp4", type: "video" as const },
       { src: "/reels/Videos/Zarna_s Customised Art and Accessories.mp4", type: "video" as const },
     ],
-    []
+    [propReels]
   );
 
   return (

@@ -2,7 +2,7 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-export function About() {
+export function About({ imageSrc }: { imageSrc?: string }) {
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -14,6 +14,7 @@ export function About() {
     [0, 0.2, 0.8, 1],
     [0, 1, 1, 0],
   );
+  const activeImage = imageSrc || "/hero/DSC08556.JPG";
   return (
     <section
       ref={containerRef}
@@ -32,7 +33,7 @@ export function About() {
           <div className="w-full md:w-1/2 relative h-[500px] md:h-[700px] rounded-2xl overflow-hidden">
 
             <Image
-              src="/hero/DSC08556.JPG"
+              src={activeImage}
               alt="About CineOg"
               fill
               className="object-cover"

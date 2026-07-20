@@ -4,9 +4,9 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 
-const Component = forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
-  (props, ref) => {
-    const images = [
+const Component = forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement> & { images?: string[] }>(
+  ({ images: propImages, ...props }, ref) => {
+    const defaultImages = [
       "/gallery/DSC00080.JPG",
       "/gallery/DSC07018.JPG",
       "/gallery/DSC00109.JPG",
@@ -26,6 +26,7 @@ const Component = forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
       "/gallery/imagesd.png"
     ];
 
+    const images = propImages || defaultImages;
     const [activeImage, setActiveImage] = useState<string | null>(null);
 
     return (

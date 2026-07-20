@@ -102,7 +102,9 @@ const IMAGES = [
 ];
 const lerp = (start: number, end: number, t: number) =>
   start * (1 - t) + end * t;
-export function IntroAnimation() {
+export function IntroAnimation({ images }: { images?: string[] }) {
+  const activeImages = useMemo(() => images || IMAGES, [images]);
+  const totalImages = activeImages.length;
   const [introPhase, setIntroPhase] = useState<AnimationPhase>("scatter");
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
@@ -193,14 +195,14 @@ export function IntroAnimation() {
     };
   }, []);
   const scatterPositions = useMemo(() => {
-    return IMAGES.map(() => ({
+    return activeImages.map(() => ({
       x: (Math.random() - 0.5) * 1500,
       y: (Math.random() - 0.5) * 1000,
       rotation: (Math.random() - 0.5) * 180,
       scale: 0.6,
       opacity: 0,
     }));
-  }, []);
+  }, [activeImages]);
   const [morphValue, setMorphValue] = useState(0);
   const [rotateValue, setRotateValue] = useState(0);
   const [parallaxValue, setParallaxValue] = useState(0);
@@ -271,13 +273,13 @@ export function IntroAnimation() {
         </motion.div>
         <div className="relative flex items-center justify-center w-full h-full">
 
-          {IMAGES.slice(0, TOTAL_IMAGES).map((src, i) => {
+          {activeImages.slice(0, totalImages).map((src, i) => {
             let target = { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 };
             if (introPhase === "scatter") {
               target = scatterPositions[i];
             } else if (introPhase === "line") {
               const lineSpacing = 70;
-              const lineTotalWidth = TOTAL_IMAGES * lineSpacing;
+              const lineTotalWidth = totalImages * lineSpacing;
               const lineX = i * lineSpacing - lineTotalWidth / 2;
               target = { x: lineX, y: 0, rotation: 0, scale: 1, opacity: 1 };
             } else {
@@ -289,7 +291,7 @@ export function IntroAnimation() {
               const circleRadius = isMobile 
                 ? Math.min(minDimension * 0.42, 200) 
                 : Math.min(minDimension * 0.35, 350);
-              const circleAngle = (i / TOTAL_IMAGES) * 360;
+              const circleAngle = (i / totalImages) * 360;
               const circleRad = (circleAngle * Math.PI) / 180;
               const circlePos = {
                 x: Math.cos(circleRad) * circleRadius,
@@ -305,7 +307,7 @@ export function IntroAnimation() {
               const arcCenterY = arcApexY + arcRadius;
               const spreadAngle = isMobile ? 100 : 130;
               const startAngle = -90 - spreadAngle / 2;
-              const step = spreadAngle / (TOTAL_IMAGES - 1);
+              const step = spreadAngle / (totalImages - 1);
               const scrollProgress = Math.min(
                 Math.max(rotateValue / 360, 0),
                 1,
@@ -333,7 +335,7 @@ export function IntroAnimation() {
                 key={i}
                 src={src}
                 index={i}
-                total={TOTAL_IMAGES}
+                total={totalImages}
                 phase={introPhase}
                 target={target}
               />
